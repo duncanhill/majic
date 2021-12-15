@@ -55,7 +55,6 @@ defmodule Majic.MixProject do
 
   defp package do
     [
-      files: ~w(lib/* src/*.c Makefile),
       licenses: ["Apache 2.0"],
       links: %{"GitHub" => "https://github.com/hrefhref/majic"},
       source_url: "https://git.pleroma.social/pleroma/elixir-libraries/majic"
