@@ -1,4 +1,4 @@
-CFLAGS += -std=c99 -g -Wall -Werror
+CFLAGS += -std=c99 -g -Wall
 CPPFLAGS += -I$(ERL_EI_INCLUDE_DIR) -I/usr/local/include
 LDFLAGS += -L$(ERL_EI_LIBDIR) -L/usr/local/lib
 LDLIBS = -lpthread
