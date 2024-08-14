@@ -1,7 +1,7 @@
 defmodule Majic.MixProject do
   use Mix.Project
 
-  if :erlang.system_info(:otp_release) < '21' do
+  if :erlang.system_info(:otp_release) < ~c"21" do
     raise "Majic requires Erlang/OTP 21 or newer"
   end
 
@@ -21,7 +21,8 @@ defmodule Majic.MixProject do
       name: "Majic",
       description: "File introspection with libmagic",
       source_url: "https://git.pleroma.social/pleroma/elixir-libraries/majic",
-      docs: docs()
+      docs: docs(),
+      test_coverage: [summary: false]
     ]
   end
 
@@ -43,13 +44,13 @@ defmodule Majic.MixProject do
 
   defp deps do
     [
-      {:nimble_pool, "~> 0.1"},
-      {:mime, "~> 1.0"},
+      {:nimble_pool, "~> 1.0"},
+      {:mime, "~> 2.0"},
       {:plug, "~> 1.0", optional: true},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: :dev, runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:elixir_make, "~> 0.6.1", runtime: false}
+      {:elixir_make, "~> 0.8.4", runtime: false}
     ]
   end
 
