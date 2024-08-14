@@ -21,7 +21,8 @@ defmodule Majic.MixProject do
       name: "Majic",
       description: "File introspection with libmagic",
       source_url: "https://git.pleroma.social/pleroma/elixir-libraries/majic",
-      docs: docs()
+      docs: docs(),
+      test_coverage: [summary: false]
     ]
   end
 
