@@ -45,7 +45,7 @@ defmodule Majic.MixProject do
   defp deps do
     [
       {:nimble_pool, "~> 1.0"},
-      {:mime, "~> 2.0"},
+      {:mime, "~> 1.0"},
       {:plug, "~> 1.0", optional: true},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: :dev, runtime: false},
