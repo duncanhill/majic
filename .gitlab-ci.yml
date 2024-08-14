@@ -1,0 +1,33 @@
+image: elixir:1.10-alpine
+
+variables:
+  MIX_ENV: test
+  GIT_SUBMODULE_STRATEGY: recursive
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - deps
+    - _build
+
+stages:
+  - test
+  - publish
+
+before_script:
+  - apk add build-base cmake libmagic file-dev
+  - mix local.hex --force
+  - mix local.rebar --force
+  - mix deps.get --only test
+  - mix compile --force
+
+lint:
+  stage: test
+  script:
+    - mix format --check-formatted
+
+unit-testing:
+  stage: test
+  coverage: '/(\d+\.\d+\%) \| Total/'
+  script:
+    - mix test --trace --preload-modules --cover

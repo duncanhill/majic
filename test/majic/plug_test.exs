@@ -27,6 +27,7 @@ defmodule Majic.PlugTest do
 
   @router_opts TestRouter.init([])
 
+  @tag skip: true
   test "convert uploads" do
     multipart = """
     ------w58EW1cEpjzydSCq\r

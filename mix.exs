@@ -20,7 +20,7 @@ defmodule Majic.MixProject do
       dialyzer: dialyzer(),
       name: "Majic",
       description: "File introspection with libmagic",
-      source_url: "https://github.com/hrefhref/majic",
+      source_url: "https://git.pleroma.social/pleroma/elixir-libraries/majic",
       docs: docs()
     ]
   end
@@ -55,10 +55,9 @@ defmodule Majic.MixProject do
 
   defp package do
     [
-      files: ~w(lib/gen_magic/* src/*.c Makefile),
       licenses: ["Apache 2.0"],
       links: %{"GitHub" => "https://github.com/hrefhref/majic"},
-      source_url: "https://github.com/hrefhref/majic"
+      source_url: "https://git.pleroma.social/pleroma/elixir-libraries/majic"
     ]
   end
 
@@ -73,12 +72,12 @@ defmodule Majic.MixProject do
   defp warnings_as_errors(_), do: true
 
   defp make_env() do
-    otp = :erlang.system_info(:otp_release)
-          |> to_string()
-          |> String.to_integer()
+    otp =
+      :erlang.system_info(:otp_release)
+      |> to_string()
+      |> String.to_integer()
 
     ei_incomplete = if(otp < 21.3, do: "YES", else: "NO")
     %{"EI_INCOMPLETE" => ei_incomplete}
   end
-
 end
