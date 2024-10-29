@@ -77,7 +77,7 @@ defmodule Majic.Extension do
       not match?("", old_ext) && subtype? ->
         Enum.join([basename, subtype_extension(subtype?, mime_type)], ".")
 
-      # no extension, append 
+      # no extension, append
       match?("", old_ext) && append? ->
         Enum.join([basename, List.first(ext_candidates)], ".")
 

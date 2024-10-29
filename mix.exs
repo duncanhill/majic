@@ -36,7 +36,7 @@ defmodule Majic.MixProject do
   defp dialyzer do
     [
       plt_add_apps: [:mix, :iex, :ex_unit, :plug, :mime],
-      flags: ~w(error_handling no_opaque race_conditions underspecs unmatched_returns)a,
+      flags: ~w(error_handling no_opaque underspecs unmatched_returns),
       ignore_warnings: "dialyzer-ignore-warnings.exs",
       list_unused_filters: true
     ]
@@ -48,7 +48,7 @@ defmodule Majic.MixProject do
       {:mime, "~> 1.0"},
       {:plug, "~> 1.0", optional: true},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0.0-rc.6", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.4", only: :dev, runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:elixir_make, "~> 0.8.4", runtime: false}
     ]
@@ -57,8 +57,7 @@ defmodule Majic.MixProject do
   defp package do
     [
       licenses: ["Apache 2.0"],
-      links: %{"GitHub" => "https://github.com/hrefhref/majic"},
-      source_url: "https://git.pleroma.social/pleroma/elixir-libraries/majic"
+      links: %{"GitLab" => "https://git.pleroma.social/pleroma/elixir-libraries/majic"}
     ]
   end
 
