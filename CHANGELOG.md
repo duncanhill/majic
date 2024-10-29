@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog][1], and this project adheres to [Seman
 
 - Updated dependencies
 - `-Werror` removed from `Makefile`
+- `Majic.Extension.fix/3` will append an extension when requested if none exist
 
 ## majic [1.0.0]
 
