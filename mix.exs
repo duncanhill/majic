@@ -36,7 +36,7 @@ defmodule Majic.MixProject do
   defp dialyzer do
     [
       plt_add_apps: [:mix, :iex, :ex_unit, :plug, :mime],
-      flags: ~w(error_handling no_opaque underspecs unmatched_returns)a,
+      flags: ~w(error_handling no_opaque underspecs unmatched_returns),
       ignore_warnings: "dialyzer-ignore-warnings.exs",
       list_unused_filters: true
     ]
