@@ -59,29 +59,47 @@ defmodule Majic.Extension do
   defp do_fix(name, mime_type, options) do
     append? = Keyword.get(options, :append, false)
     subtype? = Keyword.get(options, :subtype_as_extension, false)
-    exts = MIME.extensions(mime_type) ++ subtype_extension(subtype?, mime_type)
+    ext_candidates = MIME.extensions(mime_type)
     old_ext = String.downcase(Path.extname(name))
+    old_ext_bare = String.trim_leading(old_ext, ".")
+    basename = Path.basename(name, old_ext)
 
-    unless old_ext == "" do
-      basename = Path.basename(name, old_ext)
-      "." <> old = old_ext
+    cond do
+      # extension already in candidate list, so no-op
+      old_ext_bare in ext_candidates ->
+        name
 
-      if old in exts do
-        Enum.join([basename, ".", old])
-      else
-        ext = List.first(exts)
+      # has extension, append the subtype
+      not match?("", old_ext) && append? && subtype? ->
+        Enum.join([name, subtype_extension(subtype?, mime_type)], ".")
 
-        ext_list =
-          cond do
-            ext && append? -> [old, ext]
-            !ext -> []
-            ext -> [ext]
-          end
+      # has extension, change to subtype
+      not match?("", old_ext) && subtype? ->
+        Enum.join([basename, subtype_extension(subtype?, mime_type)], ".")
 
-        Enum.join([basename] ++ ext_list, ".")
-      end
-    else
-      name
+      # no extension, append
+      match?("", old_ext) && append? ->
+        Enum.join([basename, List.first(ext_candidates)], ".")
+
+      # no candidates, so strip extension
+      match?([], ext_candidates) ->
+        basename
+
+      # no extension but no appending, so no-op
+      match?("", old_ext) ->
+        name
+
+      # append first candidate
+      not Enum.empty?(ext_candidates) && append? ->
+        Enum.join([name, List.first(ext_candidates)], ".")
+
+      # change extension to first candidate
+      not Enum.empty?(ext_candidates) ->
+        Enum.join([basename, List.first(ext_candidates)], ".")
+
+      # do nothing
+      true ->
+        name
     end
   end
 

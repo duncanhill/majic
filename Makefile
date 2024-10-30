@@ -1,7 +1,7 @@
-CFLAGS += -std=c99 -g -Wall -Werror
+CFLAGS += -std=c99 -g -Wall
 CPPFLAGS += -I$(ERL_EI_INCLUDE_DIR) -I/usr/local/include
 LDFLAGS += -L$(ERL_EI_LIBDIR) -L/usr/local/lib
-LDLIBS = -lpthread -lei -lm -lmagic
+LDLIBS = -lpthread
 PRIV = priv/
 RM = rm -Rf
 
@@ -9,6 +9,9 @@ ifeq ($(EI_INCOMPLETE),YES)
   LDLIBS += -lerl_interface
   CFLAGS += -DEI_INCOMPLETE
 endif
+
+LDLIBS += -lei -lm -lmagic
+
 
 all: priv/libmagic_port
 

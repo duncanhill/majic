@@ -372,7 +372,8 @@ void process_file(char *path, ei_x_buff *result) {
 // endinaness).
 // TODO: Check if `write_cmd` exhibits the same issue.
 size_t read_exact(byte *buf, size_t len) {
-  int i, got = 0;
+  int i;
+  size_t got = 0;
 
   do {
     if ((i = read(0, buf + got, len - got)) <= 0) {
@@ -385,7 +386,8 @@ size_t read_exact(byte *buf, size_t len) {
 }
 
 size_t write_exact(byte *buf, size_t len) {
-  int i, wrote = 0;
+  int i;
+  size_t wrote = 0;
 
   do {
     if ((i = write(1, buf + wrote, len - wrote)) <= 0)
