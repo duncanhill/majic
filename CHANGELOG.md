@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog][1], and this project adheres to [Seman
 [1]: https://keepachangelog.com/en/1.0.0/
 [2]: https://semver.org/spec/v2.0.0.html
 
+## majic [1.1.1]
+
+- Fixed build artifact mistakenly included in the Hex.pm package
+
 ## majic [1.1.0]
 
 - Updated dependencies
