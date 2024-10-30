@@ -8,7 +8,7 @@ defmodule Majic.MixProject do
   def project do
     [
       app: :majic,
-      version: "1.1.0",
+      version: "1.1.1",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       elixirc_options: [warnings_as_errors: warnings_as_errors(Mix.env())],
@@ -56,6 +56,7 @@ defmodule Majic.MixProject do
 
   defp package do
     [
+      exclude_patterns: ["priv"],
       licenses: ["Apache 2.0"],
       links: %{"GitLab" => "https://git.pleroma.social/pleroma/elixir-libraries/majic"}
     ]
