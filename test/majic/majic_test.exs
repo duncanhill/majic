@@ -54,9 +54,9 @@ defmodule MajicTest do
 
   describe "custom database" do
     setup do
-      database = absolute_path("elixir.mgc")
-      on_exit(fn -> File.rm(database) end)
-      {_, 0} = System.cmd("file", ["-C", "-m", absolute_path("test/elixir")])
+      # Use the source file directly - libmagic compiles it on the fly.
+      # Pre-compiled .mgc files fail with "Too few magic entries" for small databases.
+      database = absolute_path("test/elixir")
       [database: database]
     end
 

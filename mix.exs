@@ -8,8 +8,8 @@ defmodule Majic.MixProject do
   def project do
     [
       app: :majic,
-      version: "1.1.1",
-      elixir: "~> 1.7",
+      version: "1.2.0",
+      elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       elixirc_options: [warnings_as_errors: warnings_as_errors(Mix.env())],
       start_permanent: Mix.env() == :prod,
@@ -45,7 +45,7 @@ defmodule Majic.MixProject do
   defp deps do
     [
       {:nimble_pool, "~> 1.0"},
-      {:mime, "~> 1.0"},
+      {:mime, "~> 2.0"},
       {:plug, "~> 1.0", optional: true},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: :dev, runtime: false},
