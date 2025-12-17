@@ -63,50 +63,50 @@ defmodule Majic.Extension do
     old_ext = String.downcase(Path.extname(name))
     old_ext_bare = String.trim_leading(old_ext, ".")
     basename = Path.basename(name, old_ext)
+    has_old_ext? = old_ext != ""
 
     cond do
-      # extension already in candidate list, so no-op
       old_ext_bare in ext_candidates ->
         name
 
-      # has extension, append the subtype
-      not match?("", old_ext) && append? && subtype? ->
-        Enum.join([name, subtype_extension(subtype?, mime_type)], ".")
+      has_old_ext? ->
+        fix_with_extension(name, basename, ext_candidates, append?, subtype?, mime_type)
 
-      # has extension, change to subtype
-      not match?("", old_ext) && subtype? ->
-        Enum.join([basename, subtype_extension(subtype?, mime_type)], ".")
-
-      # no extension, append
-      match?("", old_ext) && append? ->
-        Enum.join([basename, List.first(ext_candidates)], ".")
-
-      # no candidates, so strip extension
-      match?([], ext_candidates) ->
-        basename
-
-      # no extension but no appending, so no-op
-      match?("", old_ext) ->
-        name
-
-      # append first candidate
-      not Enum.empty?(ext_candidates) && append? ->
-        Enum.join([name, List.first(ext_candidates)], ".")
-
-      # change extension to first candidate
-      not Enum.empty?(ext_candidates) ->
-        Enum.join([basename, List.first(ext_candidates)], ".")
-
-      # do nothing
       true ->
-        name
+        fix_without_extension(name, basename, ext_candidates, append?)
     end
   end
 
-  defp subtype_extension(true, type) do
-    [_type, sub] = String.split(type, "/", parts: 2)
-    [sub]
+  defp fix_with_extension(name, basename, ext_candidates, append?, subtype?, mime_type) do
+    new_ext = get_new_extension(ext_candidates, subtype?, mime_type)
+
+    cond do
+      new_ext != nil && append? -> join_extension(name, new_ext)
+      new_ext != nil -> join_extension(basename, new_ext)
+      true -> basename
+    end
   end
 
-  defp subtype_extension(_, _), do: []
+  defp fix_without_extension(name, basename, ext_candidates, append?) do
+    case List.first(ext_candidates) do
+      nil -> name
+      ext when append? -> join_extension(basename, ext)
+      _ext -> name
+    end
+  end
+
+  defp get_new_extension(ext_candidates, subtype?, mime_type) do
+    case {List.first(ext_candidates), subtype?} do
+      {nil, true} -> subtype_from_mime(mime_type)
+      {nil, false} -> nil
+      {ext, _} -> ext
+    end
+  end
+
+  defp subtype_from_mime(mime_type) do
+    [_type, sub] = String.split(mime_type, "/", parts: 2)
+    sub
+  end
+
+  defp join_extension(base, ext), do: Enum.join([base, ext], ".")
 end

@@ -1,6 +1,7 @@
 defmodule Majic.PlugTest do
   use ExUnit.Case, async: true
-  use Plug.Test
+  import Plug.Test
+  import Plug.Conn
 
   defmodule TestRouter do
     use Plug.Router

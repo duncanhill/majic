@@ -47,10 +47,10 @@ defmodule Majic.MixProject do
       {:nimble_pool, "~> 1.0"},
       {:mime, "~> 2.0"},
       {:plug, "~> 1.0", optional: true},
-      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: :dev, runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:elixir_make, "~> 0.8.4", runtime: false}
+      {:elixir_make, "~> 0.9", runtime: false}
     ]
   end
 
